@@ -28,5 +28,3 @@ test.parsed.data <- fromJSON(test.body)  # convert the JSON string to a list
 x <- data.frame(t(sapply(test.parsed.data,c)))
 x <- flatten(x)
 df <- data.frame(matrix(unlist(test.parsed.data), byrow=T),stringsAsFactors=FALSE)
-
-
