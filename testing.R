@@ -4,18 +4,9 @@ library(jsonlite)
 
 source("./api-keys.R")
 
+#This encodes the authentication string in Base64, which is required to make requests from Spotify's API.
 encoded.string <- base64_enc(paste0(client.id,":",client.secret))
 updated.string <-paste0("Authorization: Basic ",encoded.string)
-
-#query.params <- list(grant_type='client_credentials')
-#response <- POST("https://accounts.spotify.com/api/token", query = query.params,
-#                 add_headers(updated.string))
-
-#response <- POST(url = "https://accounts.spotify.com/api/token",
-                 # accept_json(),
-                 # authenticate(Sys.getenv('9318d80992224d8faebabb17901502d8'), Sys.getenv('e3fff7143d0946048ade1f85b4d83e6e')),
-                 # body = list(grant_type='client_credentials'),
-                 # encode = 'form')
 
 response <- POST(
   'https://accounts.spotify.com/api/token',
@@ -37,6 +28,5 @@ test.parsed.data <- fromJSON(test.body)  # convert the JSON string to a list
 x <- data.frame(t(sapply(test.parsed.data,c)))
 x <- flatten(x)
 df <- data.frame(matrix(unlist(test.parsed.data), byrow=T),stringsAsFactors=FALSE)
-a <- data.frame(lapply(test.parsed.data,c))
 
 
