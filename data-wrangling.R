@@ -33,6 +33,8 @@ clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
 clean.playlist.tracks <- flatten(clean.playlist.tracks)
 specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
 formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
+artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
+formatted.playlist.tracks$artists <- artist.names
 
 #Uses dataframe of playlist's information to request information on each track's audio features, storing that information
 comma.separated.ids <- paste(formatted.playlist.tracks$id, collapse = ",")
