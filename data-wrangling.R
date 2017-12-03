@@ -24,6 +24,7 @@ token <- content(response)$access_token
 authorization.header <- paste0("Bearer ", token)
 
 #Uses retrieved playlist ID to create a dataframe of that playlist's important information (tracks, track ids, etc)
+source("country-playlist-data.R")
 playlist.id <- "37i9dQZEVXbLRQDuF5jeBp"
 playlist.tracks.base.uri <- paste0("https://api.spotify.com/v1/users/spotifycharts/playlists/", playlist.id)
 playlist.tracks <- GET(playlist.tracks.base.uri, add_headers(authorization = authorization.header))
