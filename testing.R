@@ -1,6 +1,7 @@
 library(spotifyr)
 library(httr)
 library(jsonlite)
+library(dplyr)
 
 source("./api-keys.R")
 
@@ -25,10 +26,37 @@ test.body <- content(test, "text")  # extract the body JSON
 test.parsed.data <- fromJSON(test.body)  # convert the JSON string to a list
 
 #Attempt at getting search endpoint to work
-query.params <- q=name:closer&type=track
+query.params <- list(q= "canada+top",  type = "playlist")
 search <- GET("https://api.spotify.com/v1/search", add_headers(authorization = authorization.header), query = query.params)
 search.body <- content(search, "text")
 search.parsed.data <- fromJSON(search.body)
+a <- data.frame(t(sapply(search.parsed.data,c)))
+a <- flatten(a)
+b <- a$items
+d <- data.frame(t(sapply(b,c)))
+d <- flatten(d)
+data.names <- d$name
+
+data.owner <- d$owner$owner$id
+data.tracks <- d$tracks$tracks
+
+check.info <- data.frame(data.names, data.owner, data.tracks)
+
+#Attempt at looking at Top 50 playlist with spotify as the user
+#query.params <- list(q= "canada+top+50",  type = "playlist")
+search.playlist <- GET("https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DX82re5NxbwyO", add_headers(authorization = authorization.header))
+search.playlist.body <- content(search.playlist, "text")
+search.playlist.parsed.data <- fromJSON(search.playlist.body)
+playlist.country <- data.frame(t(sapply(search.playlist.parsed.data,c)))
+playlist.country <- flatten(playlist.country)
+q <- playlist.country$tracks
+w <- data.frame(t(sapply(q,c)))
+names <- w$items
+names.df <- data.frame(t(sapply(names,c)))
+tracks <- names.df$track$track$name
+song.names <- data.frame(t(sapply(tracks,c)))
+
+
 
 #Formatting search
 z <- data.frame(t(sapply(search.parsed.data,c)))
