@@ -25,7 +25,7 @@ test.body <- content(test, "text")  # extract the body JSON
 test.parsed.data <- fromJSON(test.body)  # convert the JSON string to a list
 
 #Attempt at getting search endpoint to work
-query.params <- list(artist = "Migos", type = "artist")
+query.params <- q=name:closer&type=track
 search <- GET("https://api.spotify.com/v1/search", add_headers(authorization = authorization.header), query = query.params)
 search.body <- content(search, "text")
 search.parsed.data <- fromJSON(search.body)
