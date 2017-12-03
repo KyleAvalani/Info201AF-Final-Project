@@ -56,6 +56,13 @@ names.df <- data.frame(t(sapply(names,c)))
 tracks <- names.df$track$track$name
 song.names <- data.frame(t(sapply(tracks,c)))
 
+#CHECKING SPECFIC PLAYLIST
+search.playlist.US <- GET("https://api.spotify.com/v1/users/spotifycharts/playlists/37i9dQZEVXbLRQDuF5jeBp/tracks", add_headers(authorization = authorization.header))
+search.playlist.body.US <- content(search.playlist.US, "text")
+search.playlist.parsed.data.US <- fromJSON(search.playlist.body.US)
+playlist.US <- data.frame(t(sapply(search.playlist.parsed.data.US,c)))
+US.info <- playlist.US$items
+
 ##IMPORTANT STUFF BELOW
 
 playlist.tracks <- GET("https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DX82re5NxbwyO", add_headers(authorization = authorization.header))
@@ -71,6 +78,8 @@ formatted.playlist.tracks <- select(specific.tracks, track.id, track.name, track
 info.on.track <- GET("https://api.spotify.com/v1/audio-features/06AKEBrKUckW0KREUWRnvT", add_headers(authorization = authorization.header))
 info.on.track.body <- content(info.on.track, "text")
 info.on.track.parsed.data <- fromJSON(info.on.track.body) 
+
+
 
 ##IMPORTANT STUFF ^^^^
 
