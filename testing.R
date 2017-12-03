@@ -70,9 +70,9 @@ playlist.tracks.body <- content(playlist.tracks, "text")
 playlist.tracks.parsed.data <- fromJSON(playlist.tracks.body)
 clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
 clean.playlist.tracks <- flatten(clean.playlist.tracks)
-specific.tracks <- clean.playlist.tracks$tracks$tracks$items
+specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
 
-formatted.playlist.tracks <- select(specific.tracks, track.id, track.name, track.artists)
+formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
 
 
 info.on.track <- GET("https://api.spotify.com/v1/audio-features/06AKEBrKUckW0KREUWRnvT", add_headers(authorization = authorization.header))
@@ -93,3 +93,4 @@ x <- flatten(x)
 followers <- x$followers$followers[2]
 images <- x$images$images
 genres <- x$genres
+
