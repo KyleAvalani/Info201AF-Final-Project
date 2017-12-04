@@ -24,6 +24,7 @@ token <- content(response)$access_token
 authorization.header <- paste0("Bearer ", token)
 
 #Uses retrieved playlist ID to create a dataframe of that playlist's important information (tracks, track ids, etc)
+source("country-playlist-data.R")
 playlist.id <- "37i9dQZEVXbLRQDuF5jeBp"
 playlist.tracks.base.uri <- paste0("https://api.spotify.com/v1/users/spotifycharts/playlists/", playlist.id)
 playlist.tracks <- GET(playlist.tracks.base.uri, add_headers(authorization = authorization.header))
@@ -33,6 +34,8 @@ clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
 clean.playlist.tracks <- flatten(clean.playlist.tracks)
 specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
 formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
+artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
+formatted.playlist.tracks$artists <- artist.names
 
 #Uses dataframe of playlist's information to request information on each track's audio features, storing that information
 comma.separated.ids <- paste(formatted.playlist.tracks$id, collapse = ",")
