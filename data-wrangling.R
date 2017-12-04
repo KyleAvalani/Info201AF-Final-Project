@@ -1,4 +1,3 @@
-library(spotifyr)
 library(httr)
 library(jsonlite)
 library(dplyr)
@@ -24,24 +23,39 @@ response <- POST(
 token <- content(response)$access_token
 authorization.header <- paste0("Bearer ", token)
 
+#Get playlist's ID from the name of it's country.
+country.name <- "United States" #Temporary value, REMOVE LATER
+GetPlaylistID <- function(country.name){
+  source("country-playlist-data.R")
+  playlist.id <- filter(country.info.df, countries == country.name)
+  return(playlist.id)
+}
+playlist.id <- GetPlaylistID(country.name)$country.id
+
 #Uses retrieved playlist ID to create a dataframe of that playlist's important information (tracks, track ids, etc)
-source("country-playlist-data.R")
-playlist.id <- "37i9dQZEVXbLRQDuF5jeBp"
-playlist.tracks.base.uri <- paste0("https://api.spotify.com/v1/users/spotifycharts/playlists/", playlist.id)
-playlist.tracks <- GET(playlist.tracks.base.uri, add_headers(authorization = authorization.header))
-playlist.tracks.body <- content(playlist.tracks, "text")
-playlist.tracks.parsed.data <- fromJSON(playlist.tracks.body)
-clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
-clean.playlist.tracks <- flatten(clean.playlist.tracks)
-specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
-formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
-artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
-formatted.playlist.tracks$artists <- artist.names
+GetPlaylistTracks <- function(playlist.id){
+  playlist.tracks.base.uri <- paste0("https://api.spotify.com/v1/users/spotifycharts/playlists/", playlist.id)
+  playlist.tracks <- GET(playlist.tracks.base.uri, add_headers(authorization = authorization.header))
+  playlist.tracks.body <- content(playlist.tracks, "text")
+  playlist.tracks.parsed.data <- fromJSON(playlist.tracks.body)
+  clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
+  clean.playlist.tracks <- flatten(clean.playlist.tracks)
+  specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
+  formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
+  artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
+  formatted.playlist.tracks$artists <- artist.names
+  return(formatted.playlist.tracks)
+}
+formatted.playlist.tracks <- GetPlaylistTracks(playlist.id)
 
 #Uses dataframe of playlist's information to request information on each track's audio features, storing that information
-comma.separated.ids <- paste(formatted.playlist.tracks$id, collapse = ",")
-query.parameters <- list(ids = comma.separated.ids)
-audio.features.base.uri <- "https://api.spotify.com/v1/audio-features"
-info.on.track <- GET(audio.features.base.uri, query = query.parameters, add_headers(authorization = authorization.header))
-info.on.track.body <- content(info.on.track, "text")
-info.on.track.parsed.data <- data.frame(fromJSON(info.on.track.body)) 
+GetTrackAudioFeatures <- function(formatted.playlist.tracks){  
+  comma.separated.ids <- paste(formatted.playlist.tracks$id, collapse = ",")
+  query.parameters <- list(ids = comma.separated.ids)
+  audio.features.base.uri <- "https://api.spotify.com/v1/audio-features"
+  info.on.track <- GET(audio.features.base.uri, query = query.parameters, add_headers(authorization = authorization.header))
+  info.on.track.body <- content(info.on.track, "text")
+  info.on.track.parsed.data <- data.frame(fromJSON(info.on.track.body)) 
+  return(info.on.track.parsed.data)
+}
+info.on.track.parsed.data <- GetTrackAudioFeatures(formatted.playlist.tracks)
