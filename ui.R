@@ -27,7 +27,7 @@ shinyUI(navbarPage('Music Around the Globe',
     # Create a tabPanel to show your scatter plot
     tabPanel('Playlist Summary',
             # Add a titlePanel to tab
-            titlePanel('Top Fifty Playlists by Country'),
+            titlePanel('Top Fifty Playlist by Country'),
             
             # Create a sidebar layout for this tab (page)
             sidebarLayout(
