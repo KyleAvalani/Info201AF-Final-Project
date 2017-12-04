@@ -3,6 +3,7 @@ library(httr)
 library(jsonlite)
 library(dplyr)
 
+#Retrieves api-keys
 source("./api-keys.R")
 
 #Encodes the authentication string in Base64, which is required to make requests from Spotify's API.
