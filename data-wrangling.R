@@ -28,7 +28,8 @@ country.name <- "United States" #Temporary value, REMOVE LATER
 GetPlaylistID <- function(country.name){
   source("country-playlist-data.R")
   playlist.id <- filter(country.info.df, countries == country.name)
-  return(playlist.id$country.id)
+  #return(playlist.id) #uncomment this when working within this file
+  return(playlist.id$country.id) #comment this when working within this file
 }
 playlist.id <- GetPlaylistID(country.name)$country.id
 
@@ -43,6 +44,7 @@ GetPlaylistTracks <- function(playlist.id){
   specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
   formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
   artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
+  artist.names <- lapply(artist.names, paste, collapse = ", ")
   formatted.playlist.tracks$artists <- artist.names
   return(formatted.playlist.tracks)
 }

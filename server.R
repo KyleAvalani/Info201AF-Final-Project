@@ -37,9 +37,7 @@ shinyServer(function(input, output) {
     return(p)
   })
   output$table <- renderTable({
-    #temp.playlist.id <- GetPlaylistID(input$country)
-    #temp.playlist.data <- GetPlaylistTracks(temp.playlist.id)
-    return(GetPlaylistTracks(GetPlaylistID(input$country))$name)
+    return(GetPlaylistTracks(GetPlaylistID(input$country)))
   })
 })
   
