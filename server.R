@@ -42,6 +42,11 @@ shinyServer(function(input, output) {
     return(playlist.tracks)
   })
   output$audio.analysis <- renderPlotly({
-    return()
+    playlist.tracks.audio.features <- GetPlaylistTracks(GetPlaylistID(input$country2)) %>% 
+      GetTrackAudioFeatures() %>% 
+      select(input$feature)
+    plot_ly(data = playlist.tracks.audio.features, x = playlist.tracks.audio.features[,1], type = 'histogram',
+            color = playlist.tracks.audio.features[,1]) %>% 
+            layout(xaxis = list(title = input$feature))
   })
 })

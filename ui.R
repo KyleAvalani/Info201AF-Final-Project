@@ -59,7 +59,7 @@ shinyUI(navbarPage('Music Around the Globe',
                sidebarPanel(
                  
                  # Make a textInput widget for searching for country playlist
-                 selectInput('country', label = "Select a Country", choices = countries),
+                 selectInput('country2', label = "Select a Country", choices = countries),
                  selectInput('feature', label = "Select an Audio Feature", choices = colnames(info.on.track.parsed.data))
                ),
                
