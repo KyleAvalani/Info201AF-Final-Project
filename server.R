@@ -34,6 +34,7 @@ shinyServer(function(input, output) {
   output$map <- renderPlotly({ 
     return(p)
   })
+  output$table <- renderTable(iris)
 
 })
   

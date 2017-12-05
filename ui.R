@@ -38,12 +38,13 @@ shinyUI(navbarPage('Music Around the Globe',
               sidebarPanel(
                 
                 # Make a textInput widget for searching for country playlist
-                selectInput('country.playlist', label = "Select a Country", choices = countries)
+                selectInput('country', label = "Select a Country", choices = countries)
               ),
               
               # Create a main panel, in which you should display your plotly Scatter plot
               mainPanel(
-                plotlyOutput('scatter')
+                tableOutput('table')
+                #plotlyOutput('scatter')
               )
             )
     )
