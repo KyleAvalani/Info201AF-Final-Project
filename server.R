@@ -40,5 +40,3 @@ shinyServer(function(input, output) {
     return(GetPlaylistTracks(GetPlaylistID(input$country)))
   })
 })
-  
-  
