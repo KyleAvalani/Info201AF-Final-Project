@@ -1,6 +1,7 @@
 library(httr)
 library(jsonlite)
 library(dplyr)
+library(stringr)
 
 #Retrieves api-keys
 source("./api-keys.R")
@@ -31,7 +32,7 @@ GetPlaylistID <- function(country.name){
   #return(playlist.id) #uncomment this when working within this file
   return(playlist.id$country.id) #comment this when working within this file
 }
-playlist.id <- GetPlaylistID(country.name)$country.id
+playlist.id <- GetPlaylistID(country.name)
 
 #Uses retrieved playlist ID to create a dataframe of that playlist's important information (tracks, track ids, etc)
 GetPlaylistTracks <- function(playlist.id){
@@ -40,14 +41,13 @@ GetPlaylistTracks <- function(playlist.id){
   playlist.tracks.body <- content(playlist.tracks, "text")
   playlist.tracks.parsed.data <- fromJSON(playlist.tracks.body)
   clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
-  clean.playlist.tracks <- flatten(clean.playlist.tracks)
   specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
   formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
   artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
   artist.names <- lapply(artist.names, paste, collapse = ", ")
   formatted.playlist.tracks$artists <- artist.names
-  final.playlist.formatting <- select(formatted.playlist.tracks, name, artists)
-  colnames(final.playlist.formatting) <- c("Title", "Artists")
+  final.playlist.formatting <- data.frame(data.frame(1:50), formatted.playlist.tracks)
+  colnames(final.playlist.formatting) <- c("Ranking", "id", "Title", "Artists")
   return(final.playlist.formatting)
 }
 formatted.playlist.tracks <- GetPlaylistTracks(playlist.id)
@@ -60,6 +60,9 @@ GetTrackAudioFeatures <- function(formatted.playlist.tracks){
   info.on.track <- GET(audio.features.base.uri, query = query.parameters, add_headers(authorization = authorization.header))
   info.on.track.body <- content(info.on.track, "text")
   info.on.track.parsed.data <- data.frame(fromJSON(info.on.track.body)) 
+  colnames(info.on.track.parsed.data) <- gsub("audio_features.","",colnames(info.on.track.parsed.data))
+  info.on.track.parsed.data <- select(info.on.track.parsed.data, danceability, energy, key, loudness, mode, speechiness,
+                                      acousticness, instrumentalness, liveness, valence, tempo, duration_ms)
   return(info.on.track.parsed.data)
 }
 info.on.track.parsed.data <- GetTrackAudioFeatures(formatted.playlist.tracks)

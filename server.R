@@ -37,6 +37,11 @@ shinyServer(function(input, output) {
     return(p)
   })
   output$table <- renderTable({
-    return(GetPlaylistTracks(GetPlaylistID(input$country)))
+    playlist.tracks <- GetPlaylistTracks(GetPlaylistID(input$country)) %>% 
+      select(Ranking, Title, Artists)
+    return(playlist.tracks)
+  })
+  output$audio.analysis <- renderPlotly({
+    return()
   })
 })
