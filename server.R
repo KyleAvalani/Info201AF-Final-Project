@@ -41,6 +41,9 @@ shinyServer(function(input, output) {
       select(Ranking, Title, Artists)
     return(playlist.tracks)
   })
+  output$audio.analysis <- renderPlotly({
+    return()
+  })
 })
   
   
