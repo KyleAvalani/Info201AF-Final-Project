@@ -6,6 +6,8 @@ library(ggplot2)
 # Place holder data
 df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
 
+source("country-playlist-data.R")
+
 # light grey boundaries
 l <- list(color = toRGB("grey"), width = 0.5)
 
@@ -34,8 +36,11 @@ shinyServer(function(input, output) {
   output$map <- renderPlotly({ 
     return(p)
   })
-  output$table <- renderTable(iris)
-
+  output$table <- renderTable({
+    #temp.playlist.id <- GetPlaylistID(input$country)
+    #temp.playlist.data <- GetPlaylistTracks(temp.playlist.id)
+    return(GetPlaylistTracks(GetPlaylistID(input$country))$name)
+  })
 })
   
   

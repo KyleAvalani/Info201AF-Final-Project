@@ -28,7 +28,7 @@ country.name <- "United States" #Temporary value, REMOVE LATER
 GetPlaylistID <- function(country.name){
   source("country-playlist-data.R")
   playlist.id <- filter(country.info.df, countries == country.name)
-  return(playlist.id)
+  return(playlist.id$country.id)
 }
 playlist.id <- GetPlaylistID(country.name)$country.id
 

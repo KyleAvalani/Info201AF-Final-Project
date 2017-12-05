@@ -44,7 +44,6 @@ shinyUI(navbarPage('Music Around the Globe',
               # Create a main panel, in which you should display your plotly Scatter plot
               mainPanel(
                 tableOutput('table')
-                #plotlyOutput('scatter')
               )
             )
     )
