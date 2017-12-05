@@ -66,3 +66,16 @@ GetTrackAudioFeatures <- function(formatted.playlist.tracks){
   return(info.on.track.parsed.data)
 }
 info.on.track.parsed.data <- GetTrackAudioFeatures(formatted.playlist.tracks)
+
+# Audio Analysis for each feature 
+
+audio.anaylsis.averages <- summarise(info.on.track.parsed.data, dance.avg = mean(info.on.track.parsed.data$danceability),  
+     energy.avg = mean(info.on.track.parsed.data$energy),
+     key.avg = mean(info.on.track.parsed.data$key), loudness.avg = mean(info.on.track.parsed.data$loudness), 
+     mode.avg = mean(info.on.track.parsed.data$mode),speechiness.avg = mean(info.on.track.parsed.data$speechiness),
+     acousticness.avg = mean(info.on.track.parsed.data$acousticness), instrumentalness.avg = mean(info.on.track.parsed.data$instrumentalness),
+     liveness.avg = mean(info.on.track.parsed.data$liveness), valence.avg = mean(info.on.track.parsed.data$valence), 
+     tempo.avg = mean(info.on.track.parsed.data$tempo), duration.avg = mean(info.on.track.parsed.data$duration_ms))
+
+
+
