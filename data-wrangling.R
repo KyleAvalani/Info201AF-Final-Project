@@ -31,7 +31,7 @@ GetPlaylistID <- function(country.name){
   #return(playlist.id) #uncomment this when working within this file
   return(playlist.id$country.id) #comment this when working within this file
 }
-playlist.id <- GetPlaylistID(country.name)$country.id
+playlist.id <- GetPlaylistID(country.name)
 
 #Uses retrieved playlist ID to create a dataframe of that playlist's important information (tracks, track ids, etc)
 GetPlaylistTracks <- function(playlist.id){
@@ -45,9 +45,8 @@ GetPlaylistTracks <- function(playlist.id){
   artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
   artist.names <- lapply(artist.names, paste, collapse = ", ")
   formatted.playlist.tracks$artists <- artist.names
-  final.playlist.formatting <- select(formatted.playlist.tracks, name, artists)
-  final.playlist.formatting <- data.frame(data.frame(1:50), final.playlist.formatting)
-  colnames(final.playlist.formatting) <- c("Ranking", "Title", "Artists")
+  final.playlist.formatting <- data.frame(data.frame(1:50), formatted.playlist.tracks)
+  colnames(final.playlist.formatting) <- c("Ranking", "id", "Title", "Artists")
   return(final.playlist.formatting)
 }
 formatted.playlist.tracks <- GetPlaylistTracks(playlist.id)
