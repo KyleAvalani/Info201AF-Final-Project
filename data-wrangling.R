@@ -1,6 +1,7 @@
 library(httr)
 library(jsonlite)
 library(dplyr)
+library(stringr)
 
 #Retrieves api-keys
 source("./api-keys.R")
@@ -59,6 +60,9 @@ GetTrackAudioFeatures <- function(formatted.playlist.tracks){
   info.on.track <- GET(audio.features.base.uri, query = query.parameters, add_headers(authorization = authorization.header))
   info.on.track.body <- content(info.on.track, "text")
   info.on.track.parsed.data <- data.frame(fromJSON(info.on.track.body)) 
+  colnames(info.on.track.parsed.data) <- gsub("audio_features.","",colnames(info.on.track.parsed.data))
+  info.on.track.parsed.data <- select(info.on.track.parsed.data, danceability, energy, key, loudness, mode, speechiness,
+                                      acousticness, instrumentalness, liveness, valence, tempo, duration_ms)
   return(info.on.track.parsed.data)
 }
 info.on.track.parsed.data <- GetTrackAudioFeatures(formatted.playlist.tracks)
