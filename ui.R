@@ -2,6 +2,8 @@
 library(shiny)
 library(plotly)
 
+source("country-playlist-data.R")
+
 shinyUI(navbarPage('Music Around the Globe',
   # Create a tab panel for map
     tabPanel('Map',
@@ -36,7 +38,7 @@ shinyUI(navbarPage('Music Around the Globe',
               sidebarPanel(
                 
                 # Make a textInput widget for searching for country playlist
-                textInput('search', label="Find a Country", value = '')
+                selectInput('country.playlist', label = "Select a Country", choices = countries)
               ),
               
               # Create a main panel, in which you should display your plotly Scatter plot
