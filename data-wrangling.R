@@ -46,7 +46,9 @@ GetPlaylistTracks <- function(playlist.id){
   artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
   artist.names <- lapply(artist.names, paste, collapse = ", ")
   formatted.playlist.tracks$artists <- artist.names
-  return(formatted.playlist.tracks)
+  final.playlist.formatting <- select(formatted.playlist.tracks, name, artists)
+  colnames(final.playlist.formatting) <- c("Title", "Artists")
+  return(final.playlist.formatting)
 }
 formatted.playlist.tracks <- GetPlaylistTracks(playlist.id)
 
