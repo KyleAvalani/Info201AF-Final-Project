@@ -40,14 +40,14 @@ GetPlaylistTracks <- function(playlist.id){
   playlist.tracks.body <- content(playlist.tracks, "text")
   playlist.tracks.parsed.data <- fromJSON(playlist.tracks.body)
   clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
-  clean.playlist.tracks <- flatten(clean.playlist.tracks)
   specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
   formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
   artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
   artist.names <- lapply(artist.names, paste, collapse = ", ")
   formatted.playlist.tracks$artists <- artist.names
   final.playlist.formatting <- select(formatted.playlist.tracks, name, artists)
-  colnames(final.playlist.formatting) <- c("Title", "Artists")
+  final.playlist.formatting <- data.frame(data.frame(1:50), final.playlist.formatting)
+  colnames(final.playlist.formatting) <- c("Ranking", "Title", "Artists")
   return(final.playlist.formatting)
 }
 formatted.playlist.tracks <- GetPlaylistTracks(playlist.id)
