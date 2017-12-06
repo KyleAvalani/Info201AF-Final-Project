@@ -2,6 +2,7 @@
 library(shiny)
 library(dplyr)
 library(ggplot2)
+library(shinythemes)
 
 # Place holder data
 df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')

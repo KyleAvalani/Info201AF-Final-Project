@@ -1,12 +1,13 @@
 # ui.R
 library(shiny)
 library(plotly)
+library(shinythemes)
 
 source("country-playlist-data.R")
 source("data-wrangling.R")
 
-shinyUI(navbarPage('Music Around the Globe',
-  # Create a tab panel for map
+shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
+    # Create a tab panel for map
     tabPanel('Map',
             titlePanel('Music by Country'),
             # Create sidebar layout
@@ -65,15 +66,15 @@ shinyUI(navbarPage('Music Around the Globe',
                  # Make a textInput widget for searching for country playlist
                  selectInput('country2', label = "Select a Country", choices = countries),
                  selectInput('feature', label = "Select an Audio Feature", choices = colnames(info.on.track.parsed.data)),
-                 helpText("danceability = how suitable a track is for dancing based on tempo, rhythm and beat,
-                          energy = measure of intensity and activity,
-                          key = key track is in based on integer scale (0 = C, 1 = C♯/D♭, 2 = D, and so on),
-                          loudness = loudness of a track in decibels,
-                          mode = indicates if track is major or minor,
-                          speechiness = presence of spoken word in track,
-                          acousticness = confidence measure of track is acoustic,
-                          instrumentalness = predicts whether a track contains no vocals
-                          ")
+                 helpText("danceability = how suitable a track is for dancing based on tempo", 
+                          "rhythm and beat",
+                          "energy = measure of intensity and activity",
+                          "key = key track is in based on integer scale (0 = C, 1 = C♯/D♭, 2 = D, and so on)",
+                          "loudness = loudness of a track in decibels",
+                          "mode = indicates if track is major or minor",
+                          "speechiness = presence of spoken word in track",
+                          "acousticness = confidence measure of track is acoustic",
+                          "instrumentalness = predicts whether a track contains no vocals")
                ),
                
                # Create a main panel, in which you should display your plotly Scatter plot
