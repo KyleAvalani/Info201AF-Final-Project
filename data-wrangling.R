@@ -67,7 +67,6 @@ GetTrackAudioFeatures <- function(formatted.playlist.tracks){
 }
 info.on.track.parsed.data <- GetTrackAudioFeatures(formatted.playlist.tracks)
 
-<<<<<<< HEAD
 # Audio Analysis for each feature 
 source('country-playlist-data.R')
 
@@ -97,3 +96,4 @@ big.data.frame <- rbind(AverageFeature('Argentina'), AverageFeature('Australia')
                         AverageFeature('Norway'), AverageFeature('Panama'), AverageFeature('Paraguay'), AverageFeature('Peru'), AverageFeature('Philippines'), AverageFeature('Poland'), AverageFeature('Portugal'),
                         AverageFeature('Singapore'), AverageFeature('Slovakia'), AverageFeature('Spain'), AverageFeature('Sweden'), AverageFeature('Switzerland'), AverageFeature('Taiwan'), AverageFeature('Thailand'),
                         AverageFeature('Turkey'), AverageFeature('United Kingdom'), AverageFeature('United States'), AverageFeature('Uruguay'))
+big.data.frame <- data.frame(big.data.frame, country.code)
