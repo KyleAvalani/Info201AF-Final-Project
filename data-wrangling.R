@@ -86,20 +86,20 @@ source('country-playlist-data.R')
 AverageFeature <- function(country) {
   df <- GetTrackAudioFeatures(GetPlaylistTracks(GetPlaylistID(country)))
   feature.averages <- summarise(df, 
-    dance.avg = mean(df$danceability),  
-    energy.avg = mean(df$energy),
-    key.avg = mean(df$key), loudness.avg = mean(df$loudness), 
-    mode.avg = mean(df$mode),speechiness.avg = mean(df$speechiness),
-    acousticness.avg = mean(df$acousticness), instrumentalness.avg = mean(df$instrumentalness),
-    liveness.avg = mean(df$liveness), valence.avg = mean(df$valence), 
-    tempo.avg = mean(df$tempo), duration.avg = mean(df$duration_ms)
+    dance.avg = mean(df$danceability, na.rm = TRUE),  
+    energy.avg = mean(df$energy, na.rm = TRUE),
+    key.avg = mean(df$key, na.rm = TRUE), loudness.avg = mean(df$loudness, na.rm = TRUE), 
+    mode.avg = mean(df$mode, na.rm = TRUE),speechiness.avg = mean(df$speechiness, na.rm = TRUE),
+    acousticness.avg = mean(df$acousticness, na.rm = TRUE), instrumentalness.avg = mean(df$instrumentalness, na.rm = TRUE),
+    liveness.avg = mean(df$liveness, na.rm = TRUE), valence.avg = mean(df$valence, na.rm = TRUE), 
+    tempo.avg = mean(df$tempo, na.rm = TRUE), duration.avg = mean(df$duration_ms, na.rm = TRUE)
   )
   feature.averages$countries = country
   return(feature.averages)
 }
 
-a <- AverageFeature('United States')
-b <- AverageFeature('Argentina')
+a <- AverageFeature('New Zealand')
+b <- AverageFeature('Uruguay')
 
 # Need better method of adding rows..
 countries.and.features <- full_join(countries.and.features, AverageFeature('United States'))

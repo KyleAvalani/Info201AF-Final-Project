@@ -50,3 +50,4 @@ shinyServer(function(input, output) {
             layout(xaxis = list(title = input$feature))
   })
 })
+
