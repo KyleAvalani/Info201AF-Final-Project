@@ -81,30 +81,30 @@ audio.anaylsis.averages <- summarise(info.on.track.parsed.data, dance.avg = mean
 
 # Sad attempt at a function to use with lapply
 
-source('country-playlist-data.R')
-
-AverageFeature <- function(country) {
-  df <- GetTrackAudioFeatures(GetPlaylistTracks(GetPlaylistID(country)))
-  feature.averages <- summarise(df, 
-    dance.avg = mean(df$danceability, na.rm = TRUE),  
-    energy.avg = mean(df$energy, na.rm = TRUE),
-    key.avg = mean(df$key, na.rm = TRUE), loudness.avg = mean(df$loudness, na.rm = TRUE), 
-    mode.avg = mean(df$mode, na.rm = TRUE),speechiness.avg = mean(df$speechiness, na.rm = TRUE),
-    acousticness.avg = mean(df$acousticness, na.rm = TRUE), instrumentalness.avg = mean(df$instrumentalness, na.rm = TRUE),
-    liveness.avg = mean(df$liveness, na.rm = TRUE), valence.avg = mean(df$valence, na.rm = TRUE), 
-    tempo.avg = mean(df$tempo, na.rm = TRUE), duration.avg = mean(df$duration_ms, na.rm = TRUE)
-  )
-  feature.averages$countries = country
-  return(feature.averages)
-}
-
-a <- AverageFeature('New Zealand')
-b <- AverageFeature('Uruguay')
-
-# Need better method of adding rows..
-countries.and.features <- full_join(countries.and.features, AverageFeature('United States'))
-
-# Doesn't Work
-countries.and.features <- full_join(countries.and.features, AverageFeature('Uruguay'))
-# Not yet working... because of function pre-set for United States?
-#lapply(country.info.df[,countries], AverageFeature(country.info.df$countries))
+# source('country-playlist-data.R')
+# 
+# AverageFeature <- function(country) {
+#   df <- GetTrackAudioFeatures(GetPlaylistTracks(GetPlaylistID(country)))
+#   feature.averages <- summarise(df, 
+#     dance.avg = mean(df$danceability, na.rm = TRUE),  
+#     energy.avg = mean(df$energy, na.rm = TRUE),
+#     key.avg = mean(df$key, na.rm = TRUE), loudness.avg = mean(df$loudness, na.rm = TRUE), 
+#     mode.avg = mean(df$mode, na.rm = TRUE),speechiness.avg = mean(df$speechiness, na.rm = TRUE),
+#     acousticness.avg = mean(df$acousticness, na.rm = TRUE), instrumentalness.avg = mean(df$instrumentalness, na.rm = TRUE),
+#     liveness.avg = mean(df$liveness, na.rm = TRUE), valence.avg = mean(df$valence, na.rm = TRUE), 
+#     tempo.avg = mean(df$tempo, na.rm = TRUE), duration.avg = mean(df$duration_ms, na.rm = TRUE)
+#   )
+#   feature.averages$countries = country
+#   return(feature.averages)
+# }
+# 
+# a <- AverageFeature('New Zealand')
+# b <- AverageFeature('Uruguay')
+# 
+# # Need better method of adding rows..
+# countries.and.features <- full_join(countries.and.features, AverageFeature('United States'))
+# 
+# # Doesn't Work
+# countries.and.features <- full_join(countries.and.features, AverageFeature('Uruguay'))
+# # Not yet working... because of function pre-set for United States?
+# #lapply(country.info.df[,countries], AverageFeature(country.info.df$countries))
