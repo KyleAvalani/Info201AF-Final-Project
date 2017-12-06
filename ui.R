@@ -17,7 +17,11 @@ shinyUI(navbarPage('Music Around the Globe',
                 
                 # Input to select variable to map
                 # Changes hover info
-                selectInput('mapvar', label = 'Variable to Map', choices = list("Top 5 Songs" = 'songs', 'Top 5 Artists' = 'artists', 'Average song features' = 'features'))
+                selectInput('mapvar', label = 'Variable to Map', choices = list("Average Danceability" = 'danceability', 'Average Energy' = 'energy', 'Average Key' = 'key',
+                                                                                'Average Loudness' = 'loudness', 'Average Mode' = 'mode', 'Average Speechiness' = 'speechiness',
+                                                                                'Average Acousticness' = 'acousticness', 'Average Instrumentalness' = 'instrumentalness',
+                                                                                'Average Liveness' = 'liveness', 'Average Valence' = 'valence', 'Average Tempo' = 'tempo',
+                                                                                'Average Duration' = 'duration'))
               ),
               
               # Main panel: display plotly map
