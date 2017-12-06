@@ -1,12 +1,13 @@
 # ui.R
 library(shiny)
 library(plotly)
+library(shinythemes)
 
 source("country-playlist-data.R")
 source("data-wrangling.R")
 
-shinyUI(navbarPage('Music Around the Globe',
-  # Create a tab panel for map
+shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
+    # Create a tab panel for map
     tabPanel('Map',
             titlePanel('Music by Country'),
             # Create sidebar layout
