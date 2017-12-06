@@ -29,8 +29,8 @@ country.name <- "United States" #Temporary value, REMOVE LATER
 GetPlaylistID <- function(country.name){
   source("country-playlist-data.R")
   playlist.id <- filter(country.info.df, countries == country.name)
-  return(playlist.id) #uncomment this when working within this file
-  #return(playlist.id$country.id) #comment this when working within this file
+  #return(playlist.id) #uncomment this when working within this file
+  return(playlist.id$country.id) #comment this when working within this file
 }
 playlist.id <- GetPlaylistID(country.name)
 
@@ -82,13 +82,9 @@ audio.anaylsis.averages <- summarise(info.on.track.parsed.data, dance.avg = mean
 # Sad attempt at a function to use with lapply
 
 source('country-playlist-data.R')
-countries.and.features <- country.info.df
-countries.and.features <- data_frame()
 
 AverageFeature <- function(country) {
   df <- GetTrackAudioFeatures(GetPlaylistTracks(GetPlaylistID(country)))
-  feature.averages <- data_frame()
-  feature.averages$countries <- country
   feature.averages <- summarise(df, 
     dance.avg = mean(df$danceability),  
     energy.avg = mean(df$energy),
@@ -98,16 +94,17 @@ AverageFeature <- function(country) {
     liveness.avg = mean(df$liveness), valence.avg = mean(df$valence), 
     tempo.avg = mean(df$tempo), duration.avg = mean(df$duration_ms)
   )
-  countries.and.features <- (feature.averages)
-  return(countries.and.features)
+  feature.averages$countries = country
+  return(feature.averages)
 }
 
 a <- AverageFeature('United States')
+b <- AverageFeature('Argentina')
 
 # Need better method of adding rows..
 countries.and.features <- full_join(countries.and.features, AverageFeature('United States'))
 
 # Doesn't Work
 countries.and.features <- full_join(countries.and.features, AverageFeature('Uruguay'))
-  # Not yet working... because of function pre-set for United States?
+# Not yet working... because of function pre-set for United States?
 #lapply(country.info.df[,countries], AverageFeature(country.info.df$countries))

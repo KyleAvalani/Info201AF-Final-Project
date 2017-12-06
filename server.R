@@ -26,7 +26,7 @@ p <- plot_geo(df) %>%
   ) %>%
   colorbar(title = 'GDP Billions US$', tickprefix = '$') %>%
   layout(
-    title = 'Top of the charts ',
+    title = 'Top Chart Info',
     geo = g
   )
 
