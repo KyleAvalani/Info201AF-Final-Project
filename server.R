@@ -47,6 +47,8 @@ shinyServer(function(input, output) {
       GetTrackAudioFeatures() %>% 
       select(input$feature)
     plot_ly(data = playlist.tracks.audio.features, x = playlist.tracks.audio.features[,1], type = 'scatter',
+            #color = 'rgb(132, 189, 0)') %>% 
+            #colors = "green") %>% 
             color = playlist.tracks.audio.features[,1]) %>% 
             layout(xaxis = list(title = input$feature))
   })

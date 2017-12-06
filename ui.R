@@ -27,6 +27,12 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
               
               # Main panel: display plotly map
               mainPanel(
+                h1("Hello!"),
+                h5("This is a web application that was created by means of the Spotify Web API"),
+                h5("that shows the Top 50 charts for featured countries as well as analyzes"),
+                h5("the songs within those playlists for numerous different audio features,"),
+                h5("such as danceability and acousticness."),
+                h1(""),
                 plotlyOutput('map')
               )
             )
@@ -66,15 +72,15 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                  # Make a textInput widget for searching for country playlist
                  selectInput('country2', label = "Select a Country", choices = countries),
                  selectInput('feature', label = "Select an Audio Feature", choices = colnames(info.on.track.parsed.data)),
-                 helpText("danceability = how suitable a track is for dancing based on tempo", 
-                          "rhythm and beat",
-                          "energy = measure of intensity and activity",
-                          "key = key track is in based on integer scale (0 = C, 1 = C♯/D♭, 2 = D, and so on)",
-                          "loudness = loudness of a track in decibels",
-                          "mode = indicates if track is major or minor",
-                          "speechiness = presence of spoken word in track",
-                          "acousticness = confidence measure of track is acoustic",
-                          "instrumentalness = predicts whether a track contains no vocals")
+                 helpText("Danceability = how suitable a track is for dancing.",
+                          "Energy = measure of intensity and activity.",
+                          "Key = key track is in based on integer scale", 
+                          "(0 = C, 1 = C#/C♭, 2 = D, and so on).",
+                          "Loudness = loudness of a track in decibels.",
+                          "Mode = indicates if track is major or minor.",
+                          "Speechiness = presence of spoken word in track.",
+                          "Acousticness = confidence measure of track is acoustic.",
+                          "Instrumentalness = predicts whether a track contains no vocals.")
                ),
                
                # Create a main panel, in which you should display your plotly Scatter plot
