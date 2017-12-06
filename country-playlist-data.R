@@ -1,7 +1,7 @@
 #Store playlist ID along with it's associated country name for each playlist available by Spotify
 countries <- c("Argentina", "Australia", "Austria", "Belgium", "Bolivia",
                "Brazil", "Canada", "Chile", "Colombia", "Costa Rica",
-               "Czech Republic", "Denmark", "Dominican Repbulic", "Ecuador", "El Salvador",
+               "Czech Republic", "Denmark", "Dominican Republic", "Ecuador", "El Salvador",
                "Estonia", "Finland", "France", "Germany", "Greece",
                "Guatemala", "Honduras", "Hong Kong", "Hungary", "Iceland",
                "Indonesia", "Ireland", "Italy", "Japan", "Latvia",
@@ -21,4 +21,10 @@ country.id <- c("37i9dQZEVXbMMy2roB9myp", "37i9dQZEVXbJPcfkRz0wJ0", "37i9dQZEVXb
                 "37i9dQZEVXbN6itCcaL3Tt", "37i9dQZEVXbKyJS56d1pgi", "37i9dQZEVXbK4gjvS1FjPY", "37i9dQZEVXbKIVTPX9a2Sb", "37i9dQZEVXbNFJfN1Vw8d9",
                 "37i9dQZEVXbLoATJ81JYXz", "37i9dQZEVXbJiyhoAPEfMK", "37i9dQZEVXbMnZEatlMSiu", "37i9dQZEVXbMnz8KIWsvf9", "37i9dQZEVXbIVYVBNw9D5K",
                 "37i9dQZEVXbLnolsZ8PSNw", "37i9dQZEVXbLRQDuF5jeBp", "37i9dQZEVXbMJJi3wgRbAy")
-country.info.df <- data.frame(countries, country.id)
+country.code <- c('ARG', 'AUS', 'AUT', 'BEL', 'BOL', 'BRA', 'CAN', 'CHL', 'COL', 
+                  'CRI', 'CZE', 'DNK', 'DOM', 'ECU', 'SLV', 'EST', 'FIN', 'FRA', 
+                  'DEU', 'GRC', 'GTM', 'HND', 'HKG', 'HUN', 'ISL', 'IDN', 'IRL', 
+                  'ITA', 'JPN', 'LVA', 'LTU', 'MYS', 'MEX', 'NLD', 'NZL', 'NOR',
+                  'PAN', 'PRY', 'PER', 'PHL', 'POL', 'PRT', 'SGP', 'SLK', 'ESP',
+                  'SWE', 'CHE', 'TWN', 'THA', 'TUR', 'GBR', 'USA', 'URY')
+country.info.df <- data.frame(countries, country.id, country.code)

@@ -68,43 +68,32 @@ GetTrackAudioFeatures <- function(formatted.playlist.tracks){
 info.on.track.parsed.data <- GetTrackAudioFeatures(formatted.playlist.tracks)
 
 # Audio Analysis for each feature 
+source('country-playlist-data.R')
 
-audio.anaylsis.averages <- summarise(info.on.track.parsed.data, dance.avg = mean(info.on.track.parsed.data$danceability),  
-     energy.avg = mean(info.on.track.parsed.data$energy),
-     key.avg = mean(info.on.track.parsed.data$key), loudness.avg = mean(info.on.track.parsed.data$loudness), 
-     mode.avg = mean(info.on.track.parsed.data$mode),speechiness.avg = mean(info.on.track.parsed.data$speechiness),
-     acousticness.avg = mean(info.on.track.parsed.data$acousticness), instrumentalness.avg = mean(info.on.track.parsed.data$instrumentalness),
-     liveness.avg = mean(info.on.track.parsed.data$liveness), valence.avg = mean(info.on.track.parsed.data$valence), 
-     tempo.avg = mean(info.on.track.parsed.data$tempo), duration.avg = mean(info.on.track.parsed.data$duration_ms))
+all.country.averages <- data.frame()
 
+AverageFeature <- function(country) {
+  df <- GetTrackAudioFeatures(GetPlaylistTracks(GetPlaylistID(country)))
+  feature.averages <- summarise(df, 
+    dance.avg = mean(df$danceability, na.rm = TRUE),  
+    energy.avg = mean(df$energy, na.rm = TRUE),
+    key.avg = mean(df$key, na.rm = TRUE), loudness.avg = mean(df$loudness, na.rm = TRUE), 
+    mode.avg = mean(df$mode, na.rm = TRUE),speechiness.avg = mean(df$speechiness, na.rm = TRUE),
+    acousticness.avg = mean(df$acousticness, na.rm = TRUE), instrumentalness.avg = mean(df$instrumentalness, na.rm = TRUE),
+    liveness.avg = mean(df$liveness, na.rm = TRUE), valence.avg = mean(df$valence, na.rm = TRUE), 
+    tempo.avg = mean(df$tempo, na.rm = TRUE), duration.avg = mean(df$duration_ms, na.rm = TRUE)
+  )
+  feature.averages$countries = country
+  all.country.averages <- rbind(all.country.averages, feature.averages)
+  return(all.country.averages)
+}
 
-
-# Sad attempt at a function to use with lapply
-
-# source('country-playlist-data.R')
-# 
-# AverageFeature <- function(country) {
-#   df <- GetTrackAudioFeatures(GetPlaylistTracks(GetPlaylistID(country)))
-#   feature.averages <- summarise(df, 
-#     dance.avg = mean(df$danceability, na.rm = TRUE),  
-#     energy.avg = mean(df$energy, na.rm = TRUE),
-#     key.avg = mean(df$key, na.rm = TRUE), loudness.avg = mean(df$loudness, na.rm = TRUE), 
-#     mode.avg = mean(df$mode, na.rm = TRUE),speechiness.avg = mean(df$speechiness, na.rm = TRUE),
-#     acousticness.avg = mean(df$acousticness, na.rm = TRUE), instrumentalness.avg = mean(df$instrumentalness, na.rm = TRUE),
-#     liveness.avg = mean(df$liveness, na.rm = TRUE), valence.avg = mean(df$valence, na.rm = TRUE), 
-#     tempo.avg = mean(df$tempo, na.rm = TRUE), duration.avg = mean(df$duration_ms, na.rm = TRUE)
-#   )
-#   feature.averages$countries = country
-#   return(feature.averages)
-# }
-# 
-# a <- AverageFeature('New Zealand')
-# b <- AverageFeature('Uruguay')
-# 
-# # Need better method of adding rows..
-# countries.and.features <- full_join(countries.and.features, AverageFeature('United States'))
-# 
-# # Doesn't Work
-# countries.and.features <- full_join(countries.and.features, AverageFeature('Uruguay'))
-# # Not yet working... because of function pre-set for United States?
-# #lapply(country.info.df[,countries], AverageFeature(country.info.df$countries))
+big.data.frame <- rbind(AverageFeature('Argentina'), AverageFeature('Australia'), AverageFeature('Austria'), AverageFeature('Belgium'), AverageFeature('Bolivia'), AverageFeature('Brazil'), AverageFeature('Canada'),
+                        AverageFeature('Chile'), AverageFeature('Colombia'), AverageFeature('Costa Rica'), AverageFeature('Czech Republic'), AverageFeature('Denmark'), AverageFeature('Dominican Republic'),
+                        AverageFeature('Ecuador'), AverageFeature('El Salvador'), AverageFeature('Estonia'), AverageFeature('Finland'), AverageFeature('France'), AverageFeature('Germany'), AverageFeature('Greece'),
+                        AverageFeature('Guatemala'), AverageFeature('Honduras'), AverageFeature('Hong Kong'), AverageFeature('Hungary'), AverageFeature('Iceland'), AverageFeature('Indonesia'), AverageFeature('Ireland'),
+                        AverageFeature('Italy'), AverageFeature('Japan'), AverageFeature('Latvia'), AverageFeature('Lithuania'), AverageFeature('Malaysia'), AverageFeature('Mexico'), AverageFeature('Netherlands'), AverageFeature('New Zealand'),
+                        AverageFeature('Norway'), AverageFeature('Panama'), AverageFeature('Paraguay'), AverageFeature('Peru'), AverageFeature('Philippines'), AverageFeature('Poland'), AverageFeature('Portugal'),
+                        AverageFeature('Singapore'), AverageFeature('Slovakia'), AverageFeature('Spain'), AverageFeature('Sweden'), AverageFeature('Switzerland'), AverageFeature('Taiwan'), AverageFeature('Thailand'),
+                        AverageFeature('Turkey'), AverageFeature('United Kingdom'), AverageFeature('United States'), AverageFeature('Uruguay'))
+big.data.frame <- data.frame(big.data.frame, country.code)

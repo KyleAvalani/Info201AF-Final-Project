@@ -20,10 +20,10 @@ g <- list(
 )
 
 # Place holder map
-p <- plot_geo(df) %>%
+p <- plot_geo(big.data.frame) %>%
   add_trace(
-    z = ~GDP..BILLIONS., color = ~GDP..BILLIONS., colors = 'Blues',
-    text = ~COUNTRY, locations = ~CODE, marker = list(line = l)
+    z = ~dance.avg, colors = 'Blues',
+    text = ~countries, locations = ~country.code, marker = list(line = l)
   ) %>%
   colorbar(title = 'GDP Billions US$', tickprefix = '$') %>%
   layout(
