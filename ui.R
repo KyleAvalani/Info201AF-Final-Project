@@ -6,6 +6,12 @@ library(shinythemes)
 source("country-playlist-data.R")
 source("data-wrangling.R")
 
+average.values.choices <- list("Average Danceability" = 'dance.avg', "Average Energy" = 'energy.avg', "Average Key" = 'key.avg',
+                               "Average Loudness" = 'loudness.avg', "Average Mode" = 'mode.avg', "Average Speechiness" = 'speechiness.avg',
+                               "Average Acousticness" = 'acousticness.avg', "Average Instrumentalness" = 'instrumentalness.avg',
+                               "Average Liveness" = 'liveness.avg', "Average Valence" = 'valence.avg', "Average Tempo" = 'tempo.avg',
+                               "Average Duration" = 'duration.avg')
+
 shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
     # Create a tab panel for map
     tabPanel('Map',
@@ -18,11 +24,7 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                 
                 # Input to select variable to map
                 # Changes hover info
-                selectInput('mapvar', label = 'Variable to Map', choices = list("Average Danceability" = 'danceability', 'Average Energy' = 'energy', 'Average Key' = 'key',
-                                                                                'Average Loudness' = 'loudness', 'Average Mode' = 'mode', 'Average Speechiness' = 'speechiness',
-                                                                                'Average Acousticness' = 'acousticness', 'Average Instrumentalness' = 'instrumentalness',
-                                                                                'Average Liveness' = 'liveness', 'Average Valence' = 'valence', 'Average Tempo' = 'tempo',
-                                                                                'Average Duration' = 'duration'))
+                selectInput('mapvar', label = 'Variable to Map', choices = average.values.choices)
               ),
               
               # Main panel: display plotly map
