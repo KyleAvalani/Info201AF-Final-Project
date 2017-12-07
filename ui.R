@@ -98,6 +98,13 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                
                # Create a main panel, in which you should display your plotly Scatter plot
                mainPanel(
+                 h5("This page allows you to explore various features of music off top 50 charts."),
+                 h5("Select a country to explore, and view the audio analysis of popular songs in that"),
+                 h5("country. Are you a music-lover looking to discover new songs to dance to? A rising"),
+                 h5("musician wondering what features to incorporate in your track to top the charts with?"),
+                 h5("You decide what to discover with this fun interactive tool."),
+                 h5("(Note that audio analysis may not be included for all tracks)"),
+                 
                  plotlyOutput('audio.analysis')
                )
              )
