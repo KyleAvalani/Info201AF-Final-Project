@@ -6,6 +6,12 @@ library(shinythemes)
 source("country-playlist-data.R")
 source("data-wrangling.R")
 
+average.values.choices <- list("Average Danceability" = 'dance.avg', "Average Energy" = 'energy.avg', "Average Key" = 'key.avg',
+                               "Average Loudness" = 'loudness.avg', "Average Mode" = 'mode.avg', "Average Speechiness" = 'speechiness.avg',
+                               "Average Acousticness" = 'acousticness.avg', "Average Instrumentalness" = 'instrumentalness.avg',
+                               "Average Liveness" = 'liveness.avg', "Average Valence" = 'valence.avg', "Average Tempo" = 'tempo.avg',
+                               "Average Duration" = 'duration.avg')
+
 shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
     # Create a tab panel for map
     tabPanel('Map',
@@ -18,11 +24,7 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                 
                 # Input to select variable to map
                 # Changes hover info
-                selectInput('mapvar', label = 'Variable to Map', choices = list("Average Danceability" = 'danceability', 'Average Energy' = 'energy', 'Average Key' = 'key',
-                                                                                'Average Loudness' = 'loudness', 'Average Mode' = 'mode', 'Average Speechiness' = 'speechiness',
-                                                                                'Average Acousticness' = 'acousticness', 'Average Instrumentalness' = 'instrumentalness',
-                                                                                'Average Liveness' = 'liveness', 'Average Valence' = 'valence', 'Average Tempo' = 'tempo',
-                                                                                'Average Duration' = 'duration'))
+                selectInput('mapvar', label = 'Variable to Map', choices = average.values.choices)
               ),
               
               # Main panel: display plotly map
@@ -74,16 +76,24 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                  # Make a textInput widget for searching for country playlist
                  selectInput('country2', label = "Select a Country", choices = countries),
                  selectInput('feature', label = "Select an Audio Feature", choices = colnames(info.on.track.parsed.data)),
-                 helpText("Danceability = how suitable a track is for dancing.",
-                          "Energy = measure of intensity and activity.",
-                          "Key = key track is in based on integer scale", 
-                          "(0 = C, 1 = C#/C♭, 2 = D, and so on).",
-                          "Loudness = loudness of a track in decibels.",
-                          "Mode = indicates if track is major or minor.",
-                          "Speechiness = presence of spoken word in track.",
-                          "Acousticness = confidence measure of track is acoustic.",
-                          "Instrumentalness = predicts whether a track contains no vocals.")
+                 helpText("danceability = how suitable a track is for dancing based on tempo", 
+                          "rhythm and beat"), 
+                 br(),
+                 helpText("energy = measure of intensity and activity"), 
+                 br(),
+                 helpText("key = key track is in based on integer scale (0 = C, 1 = C♯/D♭, 2 = D, and so on)" ),
+                 br(),
+                 helpText("loudness = loudness of a track in decibels") ,
+                 br(),
+                 helpText("mode = indicates if track is major or minor") ,
+                 br(), 
+                 helpText("speechiness = presence of spoken word in track") ,
+                 br(), 
+                 helpText("acousticness = confidence measure of track is acoustic") ,
+                 br(), 
+                 helpText("instrumentalness = predicts whether a track contains no vocals") 
                ),
+               
                
                # Create a main panel, in which you should display your plotly Scatter plot
                mainPanel(

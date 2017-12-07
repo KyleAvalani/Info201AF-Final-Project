@@ -4,37 +4,35 @@ library(dplyr)
 library(ggplot2)
 library(shinythemes)
 
-# Place holder data
-df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
-
 source("country-playlist-data.R")
 
-# light grey boundaries
+# Light grey boundaries
 l <- list(color = toRGB("grey"), width = 0.5)
 
-# specify map projection/options
+# Specify map projection/options
 g <- list(
   showframe = FALSE,
-  showcoastlines = FALSE,
+  showcoastlines = TRUE,
   projection = list(type = 'Mercator')
 )
-
-# Place holder map
-p <- plot_geo(big.data.frame) %>%
-  add_trace(
-    z = ~dance.avg, colors = 'Blues',
-    text = ~countries, locations = ~country.code, marker = list(line = l)
-  ) %>%
-  colorbar(title = 'GDP Billions US$', tickprefix = '$') %>%
-  layout(
-    title = 'Top Chart Info',
-    geo = g
-  )
-
 
 # Start shinyServer
 shinyServer(function(input, output) { 
   output$map <- renderPlotly({ 
+    
+    temp.data.frame <- select(big.data.frame, input$mapvar, countries, country.code)
+    colnames(temp.data.frame) <- c("specified.audio.feature","countries","country.code")
+    
+    p <- plot_geo(temp.data.frame) %>%
+      add_trace(
+        z = ~specified.audio.feature, colors = 'Blues',
+        text = ~countries, locations = ~country.code, marker = list(line = l)
+      ) %>%
+      colorbar(title = input$mapvar) %>%
+      layout(
+        title = 'Average Audio Features',
+        geo = g
+      )
     return(p)
   })
   output$table <- renderTable({
