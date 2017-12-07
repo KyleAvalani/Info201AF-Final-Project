@@ -37,7 +37,9 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                 h1(""),
                 plotlyOutput('map'),
                 #h5("<a href='https://developer.spotify.com/web-api/user-guide/'>Spotify API</a>")
-                h5(a("Spotify API", href="https://developer.spotify.com/web-api/user-guide/"), target="_blank", align = "right", a("Chloropleth Map", href="https://plot.ly/r/choropleth-maps/"), target="_blank" )
+                h5(a("Spotify API", href="https://developer.spotify.com/web-api/user-guide/"), target="_blank", align = "right", 
+                   a("Chloropleth Map", href="https://plot.ly/r/choropleth-maps/"), target="_blank",
+                   a("GitHub", href="https://github.com/KyleAvalani/Info201AF-Final-Project"), target="_blank")
               )
             )
     ), 
@@ -90,7 +92,7 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                  br(), 
                  helpText("speechiness = presence of spoken word in track") ,
                  br(), 
-                 helpText("acousticness = confidence measure of track is acoustic") ,
+                 helpText("acousticness = confidence measure of whether a track is acoustic") ,
                  br(), 
                  helpText("instrumentalness = predicts whether a track contains no vocals") 
                ),
