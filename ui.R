@@ -30,10 +30,10 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
               # Main panel: display plotly map
               mainPanel(
                 h1("Hello!"),
-                h5("This is a web application that was created by means of the Spotify Web API"),
-                h5("that shows the Top 50 charts for featured countries as well as analyzes"),
-                h5("the songs within those playlists for numerous different audio features,"),
-                h5("such as danceability and acousticness."),
+                h5("This is a web application that was created for music lovers around the globe,"),
+                h5("utilizing the Spotify Web API that shows the Top 50 charts for featured countries"),
+                h5("as well as analyzes the songs within those playlists for numerous different audio"),
+                h5("features, such as danceability and acousticness."),
                 h1(""),
                 plotlyOutput('map'),
                 #h5("<a href='https://developer.spotify.com/web-api/user-guide/'>Spotify API</a>")
@@ -56,7 +56,8 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
               sidebarPanel(
                 
                 # Make a textInput widget for searching for country playlist
-                selectInput('country', label = "Select a Country", choices = countries)
+                selectInput('country', label = "Select a Country", choices = countries),
+                helpText("Select a featured country from the drop down menu to check out the fifty tracks currently topping the charts in that country")
               ),
               
               # Create a main panel, in which you should display your plotly Scatter plot
