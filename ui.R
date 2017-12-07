@@ -92,7 +92,7 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                  br(), 
                  helpText("speechiness = presence of spoken word in track") ,
                  br(), 
-                 helpText("acousticness = confidence measure of track is acoustic") ,
+                 helpText("acousticness = confidence measure of whether a track is acoustic") ,
                  br(), 
                  helpText("instrumentalness = predicts whether a track contains no vocals") 
                ),
