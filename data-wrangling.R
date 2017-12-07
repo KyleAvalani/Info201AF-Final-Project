@@ -25,11 +25,9 @@ token <- content(response)$access_token
 authorization.header <- paste0("Bearer ", token)
 
 #Get playlist's ID from the name of it's country.
-country.name <- "United States" #Temporary value, REMOVE LATER
 GetPlaylistID <- function(country.name){
   source("country-playlist-data.R")
   playlist.id <- filter(country.info.df, countries == country.name)
-  #return(playlist.id) #uncomment this when working within this file
   return(playlist.id$country.id) #comment this when working within this file
 }
 playlist.id <- GetPlaylistID(country.name)
@@ -42,7 +40,7 @@ GetPlaylistTracks <- function(playlist.id){
   playlist.tracks.parsed.data <- fromJSON(playlist.tracks.body)
   clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
   specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
-  formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
+  formatted.playlist.tracks <- select(specific.tracks, id, name, artists, external_urls)
   artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
   artist.names <- lapply(artist.names, paste, collapse = ", ")
   formatted.playlist.tracks$artists <- artist.names
@@ -51,6 +49,14 @@ GetPlaylistTracks <- function(playlist.id){
   return(final.playlist.formatting)
 }
 formatted.playlist.tracks <- GetPlaylistTracks(playlist.id)
+
+playlist.id <- GetPlaylistID("United States")
+playlist.tracks.base.uri <- paste0("https://api.spotify.com/v1/users/spotifycharts/playlists/", playlist.id)
+playlist.tracks <- GET(playlist.tracks.base.uri, add_headers(authorization = authorization.header))
+playlist.tracks.body <- content(playlist.tracks, "text")
+playlist.tracks.parsed.data <- fromJSON(playlist.tracks.body)
+clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
+specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
 
 #Uses dataframe of playlist's information to request information on each track's audio features, storing that information
 GetTrackAudioFeatures <- function(formatted.playlist.tracks){  
