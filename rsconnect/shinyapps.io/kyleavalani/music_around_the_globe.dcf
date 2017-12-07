@@ -1,0 +1,12 @@
+name: music_around_the_globe
+title: Music Around the Globe
+username:
+account: kyleavalani
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 245500
+bundleId: 1120156
+url: https://kyleavalani.shinyapps.io/music_around_the_globe/
+when: 1512615393.26042
+asMultiple: FALSE
+asStatic: FALSE
