@@ -4,7 +4,7 @@ This is the code responsible for the creation of a shiny web application for hig
 
 Using **Spotify's Web API** we map this data onto a world map and analyze different audio features of the top tracks.
 
-You can view the web app (here)[https://kyleavalani.shinyapps.io/music_around_the_globe/].
+You can view the web app here:  https://kyleavalani.shinyapps.io/music_around_the_globe/
 
 ### Map
 The **choropleth map** is the landing page for the web app. Here the average audio features of the top 50 songs of each country are displayed on a world map. The colors of each country with data correlates to their level of whichever audio feature is mapped. The user can choose which audio feature they'd like to see mapped from the sidebar widget.
