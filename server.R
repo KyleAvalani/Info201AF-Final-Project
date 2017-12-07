@@ -25,7 +25,7 @@ shinyServer(function(input, output) {
     
     p <- plot_geo(temp.data.frame) %>%
       add_trace(
-        z = ~specified.audio.feature, colors = 'Blues',
+        z = ~specified.audio.feature, colors = 'Greens',
         text = ~countries, locations = ~country.code, marker = list(line = l)
       ) %>%
       colorbar(title = input$mapvar) %>%
