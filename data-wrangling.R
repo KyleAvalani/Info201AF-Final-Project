@@ -25,6 +25,7 @@ token <- content(response)$access_token
 authorization.header <- paste0("Bearer ", token)
 
 #Get playlist's ID from the name of it's country.
+country.name <- "United States" #Initialize variable with temp value
 GetPlaylistID <- function(country.name){
   source("country-playlist-data.R")
   playlist.id <- filter(country.info.df, countries == country.name)
@@ -40,7 +41,7 @@ GetPlaylistTracks <- function(playlist.id){
   playlist.tracks.parsed.data <- fromJSON(playlist.tracks.body)
   clean.playlist.tracks <- data.frame(t(sapply(playlist.tracks.parsed.data,c)))
   specific.tracks <- clean.playlist.tracks$tracks$tracks$items$track
-  formatted.playlist.tracks <- select(specific.tracks, id, name, artists, external_urls)
+  formatted.playlist.tracks <- select(specific.tracks, id, name, artists)
   artist.names <- data.frame(t(sapply(specific.tracks$artists,c)))$name
   artist.names <- lapply(artist.names, paste, collapse = ", ")
   formatted.playlist.tracks$artists <- artist.names
