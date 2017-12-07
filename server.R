@@ -3,6 +3,7 @@ library(shiny)
 library(dplyr)
 library(ggplot2)
 library(shinythemes)
+library(stringr)
 
 source("country-playlist-data.R")
 
@@ -45,10 +46,9 @@ shinyServer(function(input, output) {
       GetTrackAudioFeatures() %>% 
       select(input$feature)
     plot_ly(data = playlist.tracks.audio.features, x = playlist.tracks.audio.features[,1], type = 'scatter',
-            #color = 'rgb(132, 189, 0)') %>% 
-            #colors = "green") %>% 
             color = playlist.tracks.audio.features[,1]) %>% 
-            layout(xaxis = list(title = input$feature))
+            layout(xaxis = list(title = str_to_title(input$feature)), yaxis = list(title = "Song Ranking"),
+                   title = paste0(str_to_title(input$feature)," vs. Song Ranking"))
   })
 })
 
