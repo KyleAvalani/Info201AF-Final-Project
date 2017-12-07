@@ -25,6 +25,7 @@ token <- content(response)$access_token
 authorization.header <- paste0("Bearer ", token)
 
 #Get playlist's ID from the name of it's country.
+country.name <- "United States" #Initialize variable with temp value
 GetPlaylistID <- function(country.name){
   source("country-playlist-data.R")
   playlist.id <- filter(country.info.df, countries == country.name)
