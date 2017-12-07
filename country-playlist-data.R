@@ -1,4 +1,4 @@
-#Store playlist ID along with it's associated country name for each playlist available by Spotify
+#Store playlist ID along with it's associated country name and country code for each playlist available by Spotify
 countries <- c("Argentina", "Australia", "Austria", "Belgium", "Bolivia",
                "Brazil", "Canada", "Chile", "Colombia", "Costa Rica",
                "Czech Republic", "Denmark", "Dominican Republic", "Ecuador", "El Salvador",
