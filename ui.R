@@ -30,10 +30,10 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
               # Main panel: display plotly map
               mainPanel(
                 h1("Hello!"),
-                h5("This is a web application that was created by means of the Spotify Web API"),
-                h5("that shows the Top 50 charts for featured countries as well as analyzes"),
-                h5("the songs within those playlists for numerous different audio features,"),
-                h5("such as danceability and acousticness."),
+                h5("This is a web application that was created for music lovers around the globe,"),
+                h5("by utilizing the Spotify Web API that shows the Top 50 charts for featured"),
+                h5("countries as well as analyzes the songs within those playlists for numerous"),
+                h5("different audio features, such as danceability and acousticness."),
                 h1(""),
                 plotlyOutput('map'),
                 #h5("<a href='https://developer.spotify.com/web-api/user-guide/'>Spotify API</a>")
