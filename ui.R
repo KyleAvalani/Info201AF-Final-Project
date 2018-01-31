@@ -24,15 +24,33 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                 
                 # Input to select variable to map
                 # Changes hover info
-                selectInput('mapvar', label = 'Variable to Map', choices = average.values.choices)
+                selectInput('mapvar', label = 'Variable to Map', choices = average.values.choices),
+                
+                helpText("Danceability = How suitable a track is for dancing based on tempo", 
+                         "rhythm and beat"), 
+                br(),
+                helpText("Energy = Measure of intensity and activity"), 
+                br(),
+                helpText("Key = Key track is in based on integer scale (0 = C, 1 = C♯/D♭, 2 = D, and so on)" ),
+                br(),
+                helpText("Loudness = Loudness of a track in decibels") ,
+                br(),
+                helpText("Mode = Indicates if track is major or minor") ,
+                br(), 
+                helpText("Speechiness = Presence of spoken word in track") ,
+                br(), 
+                helpText("Acousticness = Confidence measure of whether a track is acoustic") ,
+                br(), 
+                helpText("Instrumentalness = Predicts whether a track contains no vocals") 
+                
               ),
               
               # Main panel: display plotly map
               mainPanel(
                 h1("Hello!"),
-                h5("This is a web application that was created for music lovers around the globe,"),
-                h5("utilizing the Spotify Web API that shows the Top 50 charts for featured countries"),
-                h5("as well as analyzes the songs within those playlists for numerous different audio"),
+                h5("This is a web application that was created for music lovers around the globe"),
+                h5("by utilizing the Spotify Web API to show the Top 50 charts for featured countries,"),
+                h5("as well as analyze the songs within those playlists for numerous different audio"),
                 h5("features, such as danceability and acousticness."),
                 h1(""),
                 plotlyOutput('map'),
@@ -79,22 +97,22 @@ shinyUI(navbarPage('Music Around the Globe', theme = shinytheme("cyborg"),
                  # Make a textInput widget for searching for country playlist
                  selectInput('country2', label = "Select a Country", choices = countries),
                  selectInput('feature', label = "Select an Audio Feature", choices = colnames(info.on.track.parsed.data)),
-                 helpText("danceability = how suitable a track is for dancing based on tempo", 
+                 helpText("Danceability = How suitable a track is for dancing based on tempo", 
                           "rhythm and beat"), 
                  br(),
-                 helpText("energy = measure of intensity and activity"), 
+                 helpText("Energy = Measure of intensity and activity"), 
                  br(),
-                 helpText("key = key track is in based on integer scale (0 = C, 1 = C♯/D♭, 2 = D, and so on)" ),
+                 helpText("Key = Key track is in based on integer scale (0 = C, 1 = C♯/D♭, 2 = D, and so on)" ),
                  br(),
-                 helpText("loudness = loudness of a track in decibels") ,
+                 helpText("Loudness = Loudness of a track in decibels") ,
                  br(),
-                 helpText("mode = indicates if track is major or minor") ,
+                 helpText("Mode = Indicates if track is major or minor") ,
                  br(), 
-                 helpText("speechiness = presence of spoken word in track") ,
+                 helpText("Speechiness = Presence of spoken word in track") ,
                  br(), 
-                 helpText("acousticness = confidence measure of whether a track is acoustic") ,
+                 helpText("Acousticness = Confidence measure of whether a track is acoustic") ,
                  br(), 
-                 helpText("instrumentalness = predicts whether a track contains no vocals") 
+                 helpText("Instrumentalness = Predicts whether a track contains no vocals") 
                ),
                
                

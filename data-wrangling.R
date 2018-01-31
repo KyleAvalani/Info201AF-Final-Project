@@ -67,9 +67,9 @@ GetTrackAudioFeatures <- function(formatted.playlist.tracks){
   info.on.track <- GET(audio.features.base.uri, query = query.parameters, add_headers(authorization = authorization.header))
   info.on.track.body <- content(info.on.track, "text")
   info.on.track.parsed.data <- data.frame(fromJSON(info.on.track.body)) 
-  colnames(info.on.track.parsed.data) <- gsub("audio_features.","",colnames(info.on.track.parsed.data))
-  info.on.track.parsed.data <- select(info.on.track.parsed.data, danceability, energy, key, loudness, mode, speechiness,
-                                      acousticness, instrumentalness, liveness, valence, tempo, duration_ms)
+  colnames(info.on.track.parsed.data) <- str_to_title(gsub("audio_features.","",colnames(info.on.track.parsed.data)))
+  info.on.track.parsed.data <- select(info.on.track.parsed.data, Danceability, Energy, Key, Loudness, Mode, Speechiness,
+                                      Acousticness, Instrumentalness, Liveness, Valence, Tempo, Duration_ms)
   return(info.on.track.parsed.data)
 }
 info.on.track.parsed.data <- GetTrackAudioFeatures(formatted.playlist.tracks)
@@ -82,13 +82,13 @@ all.country.averages <- data.frame()
 AverageFeature <- function(country) {
   df <- GetTrackAudioFeatures(GetPlaylistTracks(GetPlaylistID(country)))
   feature.averages <- summarise(df, 
-    dance.avg = mean(df$danceability, na.rm = TRUE),  
-    energy.avg = mean(df$energy, na.rm = TRUE),
-    key.avg = mean(df$key, na.rm = TRUE), loudness.avg = mean(df$loudness, na.rm = TRUE), 
-    mode.avg = mean(df$mode, na.rm = TRUE),speechiness.avg = mean(df$speechiness, na.rm = TRUE),
-    acousticness.avg = mean(df$acousticness, na.rm = TRUE), instrumentalness.avg = mean(df$instrumentalness, na.rm = TRUE),
-    liveness.avg = mean(df$liveness, na.rm = TRUE), valence.avg = mean(df$valence, na.rm = TRUE), 
-    tempo.avg = mean(df$tempo, na.rm = TRUE), duration.avg = mean(df$duration_ms, na.rm = TRUE)
+    dance.avg = mean(df$Danceability, na.rm = TRUE),  
+    energy.avg = mean(df$Energy, na.rm = TRUE),
+    key.avg = mean(df$Key, na.rm = TRUE), loudness.avg = mean(df$Loudness, na.rm = TRUE), 
+    mode.avg = mean(df$Mode, na.rm = TRUE),speechiness.avg = mean(df$Speechiness, na.rm = TRUE),
+    acousticness.avg = mean(df$Acousticness, na.rm = TRUE), instrumentalness.avg = mean(df$Instrumentalness, na.rm = TRUE),
+    liveness.avg = mean(df$Liveness, na.rm = TRUE), valence.avg = mean(df$Valence, na.rm = TRUE), 
+    tempo.avg = mean(df$Tempo, na.rm = TRUE), duration.avg = mean(df$Duration_ms, na.rm = TRUE)
   )
   feature.averages$countries = country
   all.country.averages <- rbind(all.country.averages, feature.averages)
